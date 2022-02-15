@@ -1,0 +1,1312 @@
+\section{矩阵化简}
+\subsection{稳定空间，本征值和本征向量}
+\textbf{\Large 本征空间的互斥性}
+\begin{framed}
+一族对应于不同本征值的本征向量族$\mathcal{F}$是线性无关的。
+\end{framed}
+
+我们首先证明一个引理:设$f\in \mathcal{L}(E),n\in\mathbb{N}^{\star}$及$f$的本征值$(\lambda_i)_{1\le i\le n}$，两两不同。则:
+$$
+\bigoplus_{i=1}^nE_{\lambda_i}(f)=\bigoplus_{i=1}^n\mathrm{ker}(f-\lambda_i\mathrm{Id}_E)
+$$
+对$n\in\mathbb{N}^{*}$做归纳。假设在$n\ge 1$阶性质成立，证明其在$n+1$阶仍然成立。
+
+利用直和刻画，我们只需证明：$E_{\lambda_{n+1}}(f)\cap \left(\sum\limits_{i=1}^{n}E_{\lambda_i}(f)\right)=\left\{0\right\}$。
+
+设$x\in E_{\lambda_{n+1}}(f)\cap \left(\sum\limits_{i=1}^{n}E_{\lambda_i}(f)\right)$。
+
+存在唯一$(x_1,\cdots,x_n)\in\prod\limits_{i=1}^{n}E_{\lambda_i}(f)$使得:
+$$
+x=\sum_{i=1}^{n}x_i
+$$
+
+等号两边同时作用一个$f$。
+$$
+\lambda_{n+1}x=f(x)=\sum_{i=1}^n f(x_i)=\sum_{i=1}^n \lambda_i x_i
+$$
+联立两式。
+$$
+0=\sum_{i=1}^{n}(\lambda_i-\lambda_{n+1})x_i
+$$
+最后利用对任意$i\in \llbracket 1,n\rrbracket$，$(\lambda_i-\lambda_{n+1})x_i\in E_{\lambda_i}(f)$且$\lambda_i-\lambda_{n+1}\not =0$。
+
+若$\mathcal{F}$是空的(可能吗？)，自然线性无关。设$(x_i)_{1\le i\le n}$是$\mathcal{F}$的一个有限子族。对$1\le i\le n$，设$\lambda_i$是关联于$x_i$的本征值。设$(\mu_i)_{1\le i\le n}\in \mathbb{K}^n$使得$\sum\limits_{i=1}^n\mu_ix_i=0$。因为$E_{\lambda_i}(f)$是$E$的子向量空间。$\lambda_ix_i\in E_{\lambda_i}(f)$。所以:
+$$
+\begin{aligned}
+\sum\limits_{i=1}^n\mu_ix_i=0&\Longrightarrow \forall i\in \llbracket 1,n\rrbracket,\mu_ix_i\\
+&\Longrightarrow \forall i\in \llbracket 1,n\rrbracket,\mu_i=0
+\end{aligned}
+$$
+
+\textbf{\Large 本征空间的稳定性}
+\begin{framed}
+自同态$f$的本征空间是在$f$作用下稳定的子向量空间。
+\end{framed}
+
+先证引理:设$f$和$g$是两个交换的自同态，即$f\circ g=g\circ f$。则两者的子空间各自在对方作用下稳定。即:
+$$
+\forall \lambda\in \mathbb{K},g(E_{\lambda}(f))\subset E_{\lambda}(f)
+$$
+设$\lambda\in \mathbb{K},x\in E_{\lambda}(f)$。则:我们有:
+$$
+f(g(x))=g(f(x))=g(\lambda x)=\lambda g(x)
+$$
+所以
+$$
+g(x)\in \mathrm{ker}(f-\lambda \mathrm{Id}_E)=E_{\lambda}(f)
+$$
+显然，$f$和自身交换。
+
+\subsection{可对角化自同态和矩阵}
+
+我们说一个$E$的自同态可对角化，若存在一个$E$的由本征向量构成的基。
+
+\begin{framed}
+设$E$是一个有限非零维的$\mathbb{K}$-向量空间且$f\in\mathcal{L}(E)$。则$f$可对角化，当且仅当
+$$
+E=\bigoplus_{\lambda\in\sigma(f)}E_{\lambda}(f)
+$$
+\end{framed}
+
+首先证明一个引理:若$E$是有限维的，则$\sigma(f)$是$\mathbb{K}$的一个有限子集且最多包含$n=\dim E$个元素。
+
+用反证法。假设$\sigma(f)$至少包含$n+1$个不同的本征值:设$\lambda_1,\cdots,\lambda_{n+1}$是$\sigma(f)$中的不同元素。$\mathcal{L}=\left\{x_1,\cdots,x_{n+1}\right\}$是一个自由族(为什么？)。$|\mathcal{L}|=n+1>\dim E$。
+
+$\Longrightarrow$：因为$\sigma(f)$有限，所以$\bigoplus\limits_{\lambda\in\sigma(f)}E_{\lambda}(f)$良好定义。因为$\dim E\ge 1$，$\sigma(f)\not=\varnothing$(否则$E=\left\{0\right\}$)。对任意$\lambda\in\sigma(f)$，设$\mathcal{B}_{\lambda}$为$E_{\lambda}(f)$的一个基。用直和刻画:$\mathcal{B}=\bigcup\limits_{\lambda\in\sigma(f)}\mathcal{B}_{\lambda}$是$E$的一个基且由$f$的本征向量构成。所以$f$可对角化。
+
+$\Longleftarrow$：存在$E$的一个由$f$的本征向量构成的基$\mathcal{B}=(e_1,\cdots,e_n)$。对任意$i\in\llbracket 1,n\rrbracket,e_i\in \bigoplus\limits_{\lambda\in\sigma(f)} E_{\lambda}(f)$。
+$$
+E=\langle\mathcal{B}\rangle\subset \bigoplus\limits_{\lambda\in\sigma(f)} E_{\lambda}(f)
+$$
+
+\textbf{\Large 特征多项式定义}
+\begin{framed}
+设$f\in \mathcal{L}(E)$其中$E$的维数$n\ge 2$(为什么？)。则函数:
+$$
+\begin{array}{cccl}
+\chi_f: &\mathbb{K}&\longrightarrow& \mathbb{K}\\
+&\lambda &\longmapsto &\mathrm{det}(f-\lambda \mathrm{Id}_{E})
+\end{array}
+$$
+\begin{itemize}
+\item 是一个阶数恰为$n=\dim E$的多项式函数；
+\item 其支配系数为$(-1)^n$；
+\item 其常数项系数为$\mathrm{det}(f)$；
+\item 其在$\lambda^{n-1}$前的系数为$(-1)^{n-1}\mathrm{tr}(f)$。
+\end{itemize}
+非正式地把上面的内容汇总:
+$$\boxed{\chi_f(\lambda)=(-1)^n\lambda^n+(-1)^{n-1}\mathrm{tr}(f)\lambda^{n-1}+\cdots+\mathrm{det}(f)}
+$$
+\end{framed}
+
+设$\mathcal{B}$是$E$的一个基及$(a_{i,j})_{1\le i\le n\atop 1\le j\le n}$是$f$在这个基$\mathcal{B}$下的矩阵。对任意$\lambda\in \mathbb{K}$，
+$$
+\begin{aligned}
+\mathrm{det}(f-\lambda\mathrm{Id}_E)&=\sum_{\sigma\in S_n}\varepsilon(\sigma)\prod_{k=1}^n(a_{\sigma(k),k}-\delta_{\sigma(k),k}\lambda)\\
+&=\varepsilon(\mathrm{Id})\prod_{k=1}^n(a_{k,k}-\lambda)\\
+&\quad\quad+\sum_{\sigma\in S_n\backslash \left\{\mathrm{Id}\right\}}\varepsilon(\sigma)\prod_{k=1}^n(a_{\sigma(k),k}-\delta_{\sigma(k),k}\lambda)
+\end{aligned}
+$$
+所以$\chi_f$是多项式函数(为什么？)。
+
+$\chi_f(0)=\mathrm{det}(f)$，所以$\chi_f$的常数项系数为$\mathrm{det}(f)$(为什么？)。
+
+若$\sigma \in S_n\backslash \left\{\mathrm{Id}\right\}$，则至少存在两个$\llbracket 1,n\rrbracket$中的元素不是不动点(事实上，存在$i\in\llbracket 1,n\rrbracket$使得$\sigma(i)\not=i$；令$j=\sigma(i)$，因为$j\not=i\Longrightarrow \sigma(j)\not =\sigma(i)$(为什么？)，即$\sigma(j)\not =j$)。
+
+因此，$\lambda\longmapsto \prod\limits_{k=1}^n(a_{\sigma(k),k}-\delta_{\sigma(k),k}\lambda)$是一个阶数至多为$n-2$阶的多项式(为什么？)。
+
+令：
+$$
+\forall \lambda\in \mathbb{K},Q(\lambda)=\sum_{\sigma\in S_n\backslash \left\{\mathrm{Id}\right\}}\varepsilon(\sigma)\prod_{k=1}^n(a_{\sigma(k),k}-\delta_{\sigma(k),k}\lambda)
+$$
+$Q$是一个阶数至多为$n-2$阶的多项式(为什么？)且:
+$$
+\forall \lambda\in \mathbb{K},\chi_f(\lambda)=\prod_{k=1}^n(a_{k,k}-\lambda)+Q(\lambda)
+$$
+
+又，
+$$
+\prod_{k=1}^n(a_{k,k}-\lambda)=(-1)^n\prod_{k=1}^n(\lambda-a_{k,k})=(-1)^n\sum_{k=0}^{n}(-1)^{n-k}\sigma_{n-k}\lambda^k
+$$
+其中$\sigma_0=1$且$\sigma_k$(对$1\le k\le n$)代表les fonctions symétriques élémentaires en $a_{1,1},\cdots,a_{n,n}$(定义见下一页)。
+
+因此，
+$$
+\prod_{k=1}^n(a_{k,k}-\lambda)=(-1)^n\lambda^n+(-1)^{n-1}\left(\sum_{i=1}^{n}a_{i,i}\right)\lambda^{n-1}+R(\lambda)
+$$
+其中$R(\lambda)$是一个阶数至多为$n-2$阶的多项式函数。最后，
+$$
+\forall \lambda\in \mathbb{K},\chi_f(\lambda)=(-1)^n\lambda^n+(-1)^{n-1}\mathrm{tr}(f)\lambda^{n-1}+R(\lambda)+Q(\lambda)
+$$
+其中$R$和$Q$是阶数至多为$n-2$阶的多项式。
+
+Les polynômes symétriques élémentaires $s_{n, k}$ pour $n$ et $k$ entiers naturels, sont les polynômes symétriques en $n$ indéterminées définis par
+$$
+s_{n, k}\left(X_{1}, \ldots, X_{n}\right)=\sum_{1 \leq j_{1}<j_{2}<\ldots<j_{k} \leq n} X_{j_{1}} \cdots X_{j_{k},}
+$$
+ou encore par
+$$
+\left(X-X_{1}\right)\left(X-X_{2}\right) \cdots\left(X-X_{n}\right)=\sum_{k \in \mathbb{N}}(-1)^{k} X^{n-k} s_{n, k}\left(X_{1}, \ldots, X_{n}\right)
+$$
+
+\textbf{\Large 第一对角化判据}
+\begin{framed}
+设$f\in \mathcal{L}(E)$。
+
+$f$可对角化当且仅当，$\chi_f$在$\mathbb{K}$中可以完全分解且$\forall \lambda \in\sigma(f),\dim E_{\lambda}(f)=m_{\lambda}(\chi_f)$。
+\end{framed}
+
+$\Longrightarrow$:首先$E=\bigoplus\limits_{\lambda\in\sigma(f)}E_{\lambda}(f)$。则:
+$$
+\sum_{\lambda\in \sigma(f)}\dim E_{\lambda}(f)=\dim E 
+$$
+
+然后为了证明之后的结论我们需要一个引理:对任意$\lambda\in \sigma(f)$,\textbf{记$m_{\lambda}$是$\lambda$在$f$的特征多项式中的重数}。则:
+$$
+1\le \dim E_{\lambda}(f)\le m_{\lambda}
+$$
+
+为了证明这个引理，我们需要另一个重要的引理:
+设$f\in \mathcal{L}(E)$。假设$F$是$E$的一个子向量空间，在$f$作用下稳定，且$F\not=\left\{0\right\}$。我们记$g=f_{|F}\in \mathcal{L}(F)$为$f$在$F$上的限定。则:
+$$
+\chi_{g}|\chi_{f}
+$$
+
+若$F=E$,没有什么可证明的。否则，设$\mathcal{B}_1$是$F$的一个基。我们把它补全为$E$的一个基$\mathcal{B}$。则$f$在基$\mathcal{B}$下的矩阵形式为:
+$$
+M=\mathrm{Mat}_{\mathcal{B}}(f)=\left(\begin{array}{cc}
+A&B\\
+0&C
+\end{array}\right)
+$$
+$A=\mathrm{Mat}_{\mathcal{B}_1}(g)$。根据分块三角矩阵行列式的计算规则:
+$$
+\chi_{M}=\chi_{A}\times \chi_{C}
+$$
+因此，$\chi_A$整除$\chi_M$，从而$\chi_g$整除$\chi_f$。
+
+设$\lambda\in \sigma(f)$(若$\sigma(f)\not=\varnothing$)。$\left\{0\right\}\subsetneq E_{\lambda}(f)$(为什么？)所以$\dim E_{\lambda}(f)\ge 1$。$E_{\lambda}(f)$在$f$作用下稳定，$\chi_{f_{|E_{\lambda}(f)}}|\chi_f$。
+
+又：$\chi_{f_{|E_{\lambda(f)}}}=(\lambda-X)^{\dim E_{\lambda}(f)}$(为什么？)。所以:
+$$
+(X-\lambda)^{\dim E_{\lambda}(f)}|\chi_f
+$$
+则:$\dim E_{\lambda}(f)\le m_{\lambda}$(为什么？)。
+
+$$
+\dim E=\sum_{\lambda\in \sigma(f)}\dim E_{\lambda}(f)\le \sum_{\lambda\in \sigma(f)}m_{\lambda}(\chi_f)\le \textrm{deg} \chi_f=\dim E
+$$
+所以每个等号都成立。
+$$
+\forall \lambda\in \sigma(f),\dim E_{\lambda}(f)=m_{\lambda}(\chi_f)
+$$
+$$
+\sum_{\lambda\in\sigma(f)}m_{\lambda}(\chi_f)=\mathrm{deg}(\chi_f)
+$$
+即$\chi_f$在$\mathbb{K}$中完全分解。
+
+$\Longleftarrow$：对任意$\lambda\in\sigma(f)$，设$\mathcal{B}_{\lambda}$是$E_{\lambda}(f)$的一个基。$\mathcal{B}=\bigcup\limits_{\lambda\in\sigma(f)}\mathcal{B}_{\lambda}$是$E$的一个线性无关族(为什么？)。此外:因为$\chi_f$在$\mathbb{K}$中可完全分解，$
+\sum\limits_{\lambda\in\sigma(f)}m_{\lambda}(\chi_f)=\mathrm{deg}(\chi_f)
+$。从而:
+$$
+|\mathcal{B}|\underset{(\text{为什么？})}{=}\sum_{\lambda\in\sigma(f)}|\mathcal{B}_{\lambda}|=\sum_{\lambda\in\sigma(f)}\dim E_{\lambda}(f)=\sum_{\lambda\in\sigma(f)}m_{\lambda}(\chi_f)=\deg \chi_f=\dim E
+$$
+因此$\mathcal{B}$是$E$的一个基且由$f$的本征向量构成。所以$f$可对角化。
+
+\textbf{\Large 同时化简}
+\begin{framed}
+设$A,B\in \mathcal{M}_n(\mathbb{K})$。我们假设$AB=BA$且$A$和$B$都可对角化。则，存在$P\in\mathrm{GL}_n(\mathbb{K}),D,D'\in\mathrm{D}_n(\mathbb{K})$使得:
+$$
+P^{-1}AP=D\text{ 且} P^{-1}BP=D'
+$$
+\end{framed}
+
+我们先证一个重要的引理:设$f\in\mathcal{L}(E)$是一个可对角化自同态及$F$是一个在$f$作用下稳定的子向量空间。则映射$g$定义为$g(x)=f(x)$对$x\in F$(我们记作$g=f_{|F}$)可对角化。
+
+我们只需证明$F=\bigoplus\limits_{\lambda\in\sigma(f)}(E_{\lambda}(f)\cap F)$即可得到$f_{|F}$可对角化(为什么？)。
+
+$\supset$：对任意$\lambda\in \mathbb{K}$,$E_{\lambda}(g)=\left\{x\in F,f(x)=\lambda x\right\}=F\cap E_{\lambda}(f)$。
+
+$\sum\limits_{\lambda\in\sigma(f)}(E_{\lambda}(f))\cap F$是直和(为什么？)且包含于$F$。
+
+$\subset$: 设$x\in F$。因为$F\subset E$且$f$可对角化，记$\sigma(f)=\left\{\lambda_1,\cdots,\lambda_n\right\}$，存在唯一的$(x_1,\cdots,x_n)\in \prod\limits_{i=1}^nE_{\lambda_i}(f)$使得$x=\sum\limits_{i=1}^{n}x_i$。只需证对任意$i\in\llbracket 1,n\rrbracket$,$x_i\in F$(为什么？)。
+
+因为对任意$k\in\llbracket 0,n-1\rrbracket$，
+$$
+f^{~k}(x)=\sum_{i=1}^{n}\lambda_i^k x_i
+$$
+因此，
+$$
+\left(\begin{array}{c}
+x\\
+f(x)\\
+\vdots\\
+f^{~n-1}(x)
+\end{array}\right)=V(\lambda_1,\cdots,\lambda_n)\left(\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_n
+\end{array}\right)
+$$
+其中$V(\lambda_1,\cdots,V_n)$是关联于$\lambda_1,\cdots,\lambda_n$的范德蒙矩阵。由于这些值两两不同，所以，$V$可逆：
+$$
+\left(\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_n
+\end{array}\right)
+=V^{-1}(\lambda_1,\cdots,\lambda_n)\left(\begin{array}{c}
+x\\
+f(x)\\
+\vdots\\
+f^{~n-1}(x)
+\end{array}\right)
+$$
+
+设$\mathcal{B}$是$E$的一个基。存在$f,g\in\mathcal{L}(E)$使得$A=\mathrm{Mat}_{\mathcal{B}}(f),B=\mathrm{Mat}_{\mathcal{B}}(g)\in D_n(\mathbb{K})$(为什么？)。则:$f$和$g$都可对角化且交换。
+
+$E=\bigoplus\limits_{\lambda\in \sigma(f)}E_{\lambda(f)}$。
+
+设$\lambda\in \sigma(f)$。$E_{\lambda}(f)$在$g$作用下稳定(为什么？)。$g_{|E_{\lambda}(f)}$可对角化(为什么？)。存在$E_{\lambda}(f)$的一个基$\mathcal{B}_{\lambda}$由$g$的本征向量组成(为什么？)。
+
+$\mathcal{B}'=\bigcup\limits_{\lambda\in\sigma(f)}\mathcal{B}_{\lambda}$是$E$的一个基，且由可同时作为$g$(为什么？)和$f$(为什么？)的本征向量的一族向量构成。
+
+$D=\mathrm{Mat}_{\mathcal{B}'}(f),D'=\mathrm{Mat}_{\mathcal{B}'}(g)\in D_n(\mathbb{K})$(为什么？)。
+
+令$P=\mathrm{Pass}(\mathcal{B},\mathcal{B'})$。
+
+\subsection{线性微分方程}
+
+我们称线性微分方程为如下形式的微分方程：
+$$
+\forall t\in I,X'(t)=A(t)X(t)+B(t)
+$$
+其中:
+\begin{itemize}
+\item $t\longmapsto A(t)$是从实区间$I$到$\mathcal{M}_n(\mathbb{K})$的一个连续映射;
+\item $t\longmapsto B(t)$是从实区间$I$到$\mathcal{M}_{n,1}(\mathbb{K})$(或$\mathbb{K}^n$)的一个连续映射;
+\item 未知量为$X:t\longmapsto X(t)$，一个从$I$到$\mathcal{M}_{n,1}(\mathbb{K})$的可导函数。
+\end{itemize}
+
+微分方程$y^{~''}-ty^{~'}+3y=\cos(t)$是一个线性微分方程，写作如下形式:
+$$
+\tiny
+\begin{aligned}
+\forall t\in \mathbb{R},\left(\begin{array}{c}
+y^{~'}(t)\\
+y^{~''}(t)
+\end{array}\right)=Y^{~'}(t)=\left(\begin{array}{cc}
+0&1\\
+-3&t
+\end{array}\right)\left(\begin{array}{c}
+y(t)\\
+y^{~'}(t)
+\end{array}\right)+\left(\begin{array}{c}
+0\\
+\cos(t)
+\end{array}\right)=A(t)Y(t)+B(t)
+\end{aligned}
+$$
+
+\textbf {Cauchy-Lipschitz线性定理}
+
+设$I$是一个非空内部区间。$A\in \mathcal{C}^{0}(I,\mathcal{M}_n(\mathbb{K})),B\in \mathcal{C}^{0}(I,\mathcal{M}_{n,1}(\mathbb{K})),t_0\in I$且$X_0\in \mathcal{M}_{n,1}(\mathbb{K})$。Cauchy问题:
+$$(\text{C.L.})\left\{
+\begin{aligned}
+X^{~'}&=AX+B\\
+X(t_0)&=X_0
+\end{aligned}
+\right.
+$$
+取到一个在整个$I$上定义的唯一的最大解。
+
+先假设假设存在性，我们证明解的唯一性。
+
+假设$X$和$Y$是(C.L.)在$I$上的两个解。设$t \in I$，$[a ; b]$是$I$中的一个线段且包含$t_{0}$和$t$。设$\|.\|$是$\mathcal{M}_{n, 1}(\mathbb{K})$上的一个范数且$|||. |||$是$\mathcal{M}_{n}(\mathbb{K})$($\simeq \mathcal{L}\left(\mathbb{K}^{n}\right)$)上的一个三范数。
+
+记$M=\max\limits _{u \in[a ; b]}(|||A(u)||| )$且$\|X\|_{[a ; b]}=\max\limits_{u \in[a ; b]}(\|X(u)\|)$。
+
+用归纳法证明对任意$p \in \mathbb{N}$: 
+$$
+\|X(t)-Y(t)\| \leqslant \frac{M^{p}\left|t-t_{0}\right|^{p}}{p !}\|X-Y\|_{[a ; b]}
+$$
+初始化： 由$\|.\|_{[a ; b]}$的定义，
+$$
+\|X(t)-Y(t)\| \leqslant\|X-Y\|_{[a ; b]}=\frac{M^{0}\left|t-t_{0}\right|^{0}}{0 !}\|X-Y\|_{[a ; b]}
+$$
+
+递推：假设性质在$p \in \mathbb{N}$阶成立。
+$$
+\tiny
+\begin{aligned}
+\|X(t)-Y(t)\| &=\left|\int_{t_{0}}^{t} A(u)(X(u)-Y(u)) \mathrm{d} u\right| \leqslant\left|\int_{t_{0}}^{t}\|A(u)(X(u)-Y(u))\| \mathrm{d} u\right| \\
+& \leqslant\left|\int _ {t_0}^{t} ||| A ( u )|||\cdot\|X(u)-Y(u)\| \mathrm{d} u|\right| \leqslant M\left|\int_{t_0}^{t}\|X(u)-Y(u)\| \mathrm{d} u\right|\\
+& \leqslant M\left|\int_{t_{0}}^{t} \frac{M^{p}\left|u-t_{0}\right|^{p}}{p !}\|X-Y\|_{[a ; b]} \mathrm{d} u\right| \leqslant \frac{M^{p+1}}{p !}\|X-Y\|_{[a ; b]}\left|\int_{t_{0}}^{t} |u-t_{0}|^{p} \mathrm{~d} u \right|
+\end{aligned}
+$$
+
+$$\tiny
+\begin{aligned} \text{若} t \geqslant t_{0}: & \left|\int_{t_{0}}^{t}| u-t_{0}|^{p} \mathrm{~d} u \right|=\int_{t_{0}}^{t}\left(u-t_{0}\right)^{p} \mathrm{~d} u=\left[\frac{\left(u-t_{0}\right)^{p+1}}{p+1}\right]_{t_{0}}^{t}=\frac{\left(t-t_{0}\right)^{p+1}}{p+1}=\frac{\left|t-t_{0}\right|^{p+1}}{p+1} \\ 
+\text {若} t<t_{0}:&  \left|\int_{t_{0}}^{t}| u-t_{0}|^{p} \mathrm{~d} u \right|=-\int_{t_{0}}^{t}\left(t_{0}-u\right)^{p} \mathrm{~d} u=\left[\frac{\left(t_{0}-u\right)^{p+1}}{p+1}\right]_{t_{0}}^{t}=\frac{\left(t_{0}-t\right)^{p+1}}{p+1}=\frac{\left|t-t_{0}\right|^{p+1}}{p+1} .\end{aligned}
+$$
+所以$\|X(t)-Y(t)\| \leqslant \frac{M^{p+1}}{(p+1) !}\left|t-t_{0}\right|^{p+1}\|X-Y\|_{[a ; b]}$。
+
+对任意$p \in \mathbb{N}$，$\|X(t)-Y(t)\| \leqslant \frac{M^{p}(b-a)^{p}}{p !}\|X-Y\|_{[a ; b]}$。
+
+序列 $\left(\frac{M^{p}(b-a)^{p}}{p !}\|X-Y\|_{[a ; b]}\right)_{p \in \mathbb{N}}$收敛于0 。
+
+$\|X(t)-Y(t)\|=0$ 当且仅当，对任意$t \in I$，$X(t)=Y(t)$。两个函数$X$和$Y$因此相等从而证明了(假设存在时)解的唯一性。
+
+我们证明解的存在性。
+
+首先假设$I$是一个线段$[a ; b]$。记$E=\mathcal{C}\left([a ; b], \mathcal{M}_{n, 1}(\mathbb{K})\right)$。$\left(E,\|.\|_{[a ; b]}\right)$是一个巴拿赫空间。
+
+对$y \in E$,函数 $$\begin{array}{cccc}
+\varphi_{y}:&[a ; b] &\longrightarrow& \mathcal{M}_{n, 1}(\mathbb{K})\\
+&t &\longmapsto& X_{0}+\int_{t_{0}}^{t}(A(u) y(u)+B(u)) \mathrm{d} u
+\end{array}
+$$
+连续(即 $\varphi_{y} \in E$ )(为什么？)。
+
+设映射
+$$
+\varphi: \begin{aligned} E & \longrightarrow E . \\ y & \longmapsto \varphi_{y} \end{aligned}
+$$
+
+设$y, z \in E,t \in[a ; b]=I$。用归纳法证明，对任意$p \in \mathbb{N}$ :
+$$
+\left\|\varphi^{p}(y)(t)-\varphi^{p}(z)(t)\right\| \leqslant \frac{M^{p}\left|t-t_{0}\right|^{p}}{p !}\|y-z\|_{[a ; b]}
+$$
+
+初始化：
+$$\tiny
+\begin{aligned}
+\left\|\varphi^{0}(y)(t)-\varphi^{0}(z)(t)\right\|=\|y(t)-z(t)\| \leqslant\| y-z\|_{[a ; b]}=\frac{M^{0}\left|t-t_{0}\right|^{0}}{p !}\| y-z \|_{[a ; b]}
+\end{aligned}
+$$
+递推：假设性质在$p \in \mathbb{N}$阶成立。
+$$\tiny
+\begin{aligned}
+\left\|\varphi^{p+1}(y)(t)-\varphi^{p+1}(z)(t)\right\| &=\left\|\int_{t_{0}}^{t} A(u)\left(\varphi^{p}(y)(u)-\varphi^{p}(z)(u)\right) \mathrm{d} u\right\| \leqslant\left|\int_{t_{0}}^{t}\left\|A(u)\left(\varphi^{p}(y)(u)-\varphi^{p}(z)(u)\right)\right\| \mathrm{d} u\right| \\
+& \leqslant\left|\int_{t_{0}}^{t}|||A(u)|||\cdot\| \varphi^{p}(y)(u)-\varphi^{p}(z)(u)\|\mathrm{d} u\right|\leqslant M\left| \int_{t_{0}}^{t}\| \varphi^{p}(y)(u)-\varphi^{p}(z)(u) \| \mathrm{d} u\right|\\
+&\leqslant M \int_{t_{0}}^{t} \frac{M^{p}\left|u-t_{0}\right|^{p}}{p !}\|y-z\|_{[a ; b]} \mathrm{d} u \leqslant \frac{M^{p+1}}{p !}\|y-z\|_{[a ; b]}\left|\int_{t_{0}}^{t} |u-t_{0}|^{p} \mathrm{~d} u \right|
+\end{aligned}
+$$
+ 
+$$\left|\int_{t_{0}}^{t}| u-t_{0}|^{p} \mathrm{~d} u \right|=\frac{\left|t-t_{0}\right|^{p+1}}{p+1}
+$$
+$$
+\left\|\varphi^{p+1}(y)(t)-\varphi^{p+1}(z)(t)\right\| \leqslant \frac{M^{p+1}\left|t-t_{0}\right|^{p+1}}{(p+1) !} \cdot\|y-z\|_{[a ; b]}
+$$
+$$
+\forall p \in \mathbb{N}, \quad\left\|\varphi^{p}(y)(t)-\varphi^{p}(z)(t)\right\| \leqslant \frac{M^{p}(b-a)^{p}}{p !}\|y-z\|_{[a ; b]}
+$$
+序列$\left(\frac{M^{p}(b-a)^{p}}{p !}\right)_{p \in \mathbb{N}}$收敛于0。存在$p_{0} \in \mathbb{N}$使得: $$\frac{M^{p_{0}}(b-a)^{p_{0}}}{p_{0} !} \leqslant \frac{1}{2}$$ 
+$$
+\left\|\varphi^{p_{0}}(y)-\varphi^{p_{0}}(z)\right\|_{[a ; b]} \leqslant \frac{1}{2}\|y-z\|_{[a ; b]}
+$$
+
+映射$\varphi^{p_{0}}$是压缩的。$\left(E,\|.\|_{[a ; b]}\right)$是一个完备空间。由不动点定理的推论，映射 $\varphi$在$E$中有一个唯一的不动点:
+$$
+\exists ! X \in E,\varphi(X)=X
+$$
+存在唯一一个映射 $X:[a ; b] \longmapsto \mathcal{M}_{n, 1}(\mathbb{K})$使得对任意$t \in[a ; b]=I$,我们有 $X(t)=X_{0}+\int_{t_{0}}^{t}(A(u) X(u)+B(u)) \mathrm{d} u$。
+$$
+\left\{\begin{array}{l}
+X^{\prime}(t)=A(t) X(t)+B(t),\forall t \in[a ; b]=I \\
+X\left(t_{0}\right)=X_{0}
+\end{array}\right.
+$$
+这样$X$是(C.L.)在$I=[a ; b]$上的唯一解。
+
+现在处理一个任意区间$I$的情况。对$I$中包含$t_0$的一个线段$[a ; b]$.我们记$X_{[a ; b]}$是(C.L.)在$[a ; b]$上的唯一解。
+
+设$t \in I$。
+
+$\left[a_{1} ; b_{1}\right]$及$\left[a_{2} ; b_{2}\right]$两个$I$中的包含$t_{0}$和$t$的线段。
+
+设$[a, b]=\left[a_{1} ; b_{1}\right] \cap\left[a_{2} ; b_{2}\right]$。
+
+$X_{\left[a_{i} ; b_{i}\right]}$在$[a ; b]$上的限制$X_{i}(i \in\{1 ; 2\})$是(C.L.)的一个在$[a; b]$上的解。由这样的解在$[a ; b]$上的唯一性,我们有$X_{1}=X_{2}$。 $X_{\left[a_{1} ; b_{1}\right]}(t)=X_{1}(t)=X_{2}(t)=X_{\left[a_{2} ; b_{2}\right]}(t)$。
+
+$$
+\left\{X_{[\alpha ; \beta]}(t) [\alpha ; \beta] \text { 是} I \text { 中一个包含} t_{0}  \text {和} t \text{ 的线段。}\right\}
+$$
+是一个单元集(为什么？)。
+
+记$X(t)$是其中的唯一元素。
+
+函数
+$$
+\begin{aligned}
+X: I & \longrightarrow \mathcal{M}_{n, 1}(\mathbb{K}) \\
+& t \longmapsto X(t)
+\end{aligned}
+$$
+是(C.L.)在$I$上的一个解(为什么？)。
+
+\textbf{\Large 常系数线性微分方程}
+
+考虑微分方程$(E):X'(t)=AX(t)+B(t)$，其中$A\in\mathcal{M}_n(\mathbb{K})$定下，$t\longmapsto B(t)\in\mathcal{C}^0(I,\mathcal{M}_{n,1}(\mathbb{K}))$。则：
+
+\begin{itemize}
+\item 齐次方程$(E_H)$的解在$I$上定义为：
+$$
+\forall t\in I,X(t)=e^{tA}V_0
+$$
+其中$V_0\in\mathcal{M}_{n,1}(\mathbb{K})$
+\item 定下$t_0\in I$，$(E)$的解在整个区间$I$上定义为：
+$$
+\forall t\in I,X(t)=e^{tA}V_0+e^{tA}\int_{t_0}^{t}e^{-sA}B(s)\mathrm{d}s
+$$
+其中$V_0\in\mathcal{M}_{n,1}(\mathbb{K})$
+\item 最后，对任意$(t_0,X_0)\in I\times \mathcal{M}_{n,1}(\mathbb{K})$，Cauchy问题：
+$$
+\left\{\begin{aligned}
+X'&=AX+B\\
+X(t_0)&=X_0
+\end{aligned}\right.
+$$
+取到一个唯一解，定义为：
+$$
+\forall t\in I,X(t)=e^{(t-t_0)A}X_0+e^{tA}\int_{t_0}^{t}e^{-sA}B(s)\mathrm{d}s
+$$
+\end{itemize}
+
+设$X$是从$I$到$\mathcal{M}_{n,1}(\mathbb{R})$的一个函数。因为对任意$t\in\mathbb{R}$，$\exp(tA)\in\mathrm{GL}_n(\mathbb{R})$(为什么？)且$t\longmapsto \exp(tA)\in\mathcal{C}^{\infty}(\mathbb{R})\subset \mathcal{C}^1(\mathbb{R})$，令对$t\in I$，$Z(t)=\exp(-tA)X(t)$，我们说$X$可导当且仅当$Z$可导。
+$$
+\forall t\in I,Z^{~'}(t)=-\exp(-tA)AX(t)+\exp(-tA)X^{~'}(t)
+$$
+(为什么？)
+$$
+\begin{aligned}
+X\text{是}E_H\text{的一个解}&\Longleftrightarrow \forall t\in I,X'(t)-AX(t)=0\\
+&\Longleftrightarrow \forall t\in I,\exp(-tA)(X'(t)-AX(t))=0\\
+&\Longleftrightarrow \forall t\in I,Z'(t)=0\\
+&\Longleftrightarrow \exists V_0\in \mathcal{M}_{n,1}(\mathbb{K}),\forall t\in I,Z(t)=V_0\\
+&\Longleftrightarrow \exists V_0\in \mathcal{M}_{n,1}(\mathbb{K}),\forall t\in I,X(t)=\exp(tA)V_0\\
+\end{aligned}
+$$
+
+$X$是$(E)$的一个解当且仅当：
+$$
+\forall t\in I,Z^{'}(t)=\exp(-tA)B(t)
+$$
+当且仅当：
+$$
+\exists V_0\in\mathcal{M}_{n,1}(\mathbb{K}),\forall t\in I,Z(t)=V_0+\int_{t_0}^{t}\exp(-sA)B(s)\mathrm{d}s
+$$
+当且仅当：
+$$
+\exists V_0\in\mathcal{M}_{n,1}(\mathbb{K}),\forall t\in I,X(t)=\exp(tA)(V_0+\int_{t_0}^{t}\exp(-sA)B(s)\mathrm{d}s)
+$$
+显然$
+\forall t\in I,X(t)=e^{(t-t_0)A}X_0+e^{tA}\int_{t_0}^{t}e^{-sA}B(s)\mathrm{d}s
+$是$(E)$的一个解(为什么？)。
+$$
+X(t_0)=X_0\Longleftrightarrow V_0=\exp(-t_0 A)X_0
+$$
+$\forall t\in I,\exp(tA)\exp(-t_0A)=\exp((t-t_0)A)$(为什么？)
+
+\subsection{自同态或矩阵的多项式}
+
+\textbf{\Large Cayley-Hamilton定理}
+\begin{framed}
+若$f\in \mathcal{L}(E)$($E$是非零有限维)，则$\pi_f|\chi_f$，即$\chi_f$是$f$的一个零化多项式。
+\end{framed}
+
+证明目标首先是:设$x\in E$,$\chi_{f}(f)(x)=0$。
+
+然后去掉$x=0$的trivial情形，我们证明对$x\not =0,\chi_{f}(f)(x)=0$。
+
+从考虑集合$A=\left\{k\in \mathbb{N}/(x,f(x),\cdots,f^{~k}(x))\textrm{线性无关}\right\}$开始。
+
+令$p=\max A$。证明$F=\langle x,f(x),\cdots,f^{~p}(x)\rangle$是$E$的一个在$f$作用下稳定的子空间。
+
+令$\mathcal{B}_x=(x,f(x),\cdots,f^{~p}(x))$。考虑$\mathrm{Mat}_{\mathcal{B}_x}(f)$，确定$\chi_{f_{|F}}$。(这一步很困难，用到Frobenius矩阵(或伴随矩阵)相关结论，参见下一页的习题)
+
+利用$\chi_{f_{|F}}|\chi_f$。
+
+设 $\left(a_{n}\right)_{n \in \mathbb{N}}$ 是体$\mathbb{K}$中的一个序列.我们定义一个多项式$P \in \mathbb{K}_{n}[X]$和一个矩阵$M \in \mathcal{M}_{n}(\mathbb{K})$如下:
+$$
+P=X^{n}-\sum_{i=0}^{n-1} a_{i} X^{i} \quad \text {且}\quad  M=\left(\begin{array}{ccccc}
+0 & \ldots & \ldots & 0 & a_{0} \\
+1 & 0 & & \vdots & a_{1} \\
+0 & 1 & \ddots & \vdots & \vdots \\
+\vdots & \ddots & \ddots & 0 & a_{n-2} \\
+0 & \ldots & 0 & 1 & a_{n-1}
+\end{array}\right)
+$$
+确定$M$的特征多项式。
+
+把线性组合$\sum\limits_{k=1}^{n-1} X^{k} L_{k}$加到第一行，其中$L_{k}$代表第$k$行。我们得到
+$$
+\chi_{M}=\left|\begin{array}{ccccc}
+0 & \ldots & \ldots & 0 & P(X) \\
+1 & -X & & \vdots & a_{1} \\
+0 & 1 & \ddots & \vdots & \vdots \\
+\vdots & \ddots & \ddots & -X & a_{n-2} \\
+0 & \ldots & 0 & 1 & a_{n-1}-X
+\end{array}\right|=(-1)^{n} P
+$$
+通过对第一行展开(注意$(-1)^n$是怎么来的?)。矩阵$M$叫做多项式$P$的伴随矩阵。
+
+\textbf{\Large 第二对角化判据}
+\begin{framed}
+设$f$是一个$\mathbb{K}$-向量空间$E$上的自同态。
+
+$E=\bigoplus\limits_{\lambda\in \sigma(f)}E_{\lambda}(f)$当且仅当，$\pi_f=\prod\limits_{\lambda\in \sigma(f)}(X-\lambda)
+$
+\end{framed}
+
+证明思路:
+
+$\Longrightarrow$: 首先我们证明存在一个$f$的零化多项式可以用简单根完全分解。
+
+考虑$P=\prod\limits_{\lambda\in \sigma(f)}(X-\lambda)$。利用$E=\bigoplus\limits_{\lambda\in \sigma(f)}E_{\lambda}(f)$，证明$P(f)_{|E_{\lambda}}=0$
+
+然后利用$\pi_f|P$，得到$\pi_f$可以完全分解为单根。
+
+利用$Z(\pi_f)=\sigma(f)$,得到:
+$$
+\pi_f=\prod_{\lambda\in \sigma(f)}(X-\lambda)
+$$
+
+$\Longleftarrow$:首先具体写出谱$\sigma(f)=\left\{\lambda_i,1\in\llbracket 1,p\rrbracket\right\}$其中$p\ge 1$(为什么?)。
+设$x\in E$。利用关联于$\lambda_i(1\le i\le p)$的拉格朗日插值多项式$(L_i)_{1\le i\le p}$表示出$x=\sum\limits_{i=1}^{p}L_i(f)(x)$(参见下一页)。之后利用$\pi_f|(X-\lambda_i)L_i$证明$L_i(f)(x)\in E_{\lambda_i}(f)$。从而得到$E=\sum\limits_{i=1}^{p}E_{\lambda_i}(f)$。
+
+设$n \in \mathbb{N}^{*}$及$a_{1}, \ldots, a_{n} \in \mathbb{K}$.对任意$i\in \{1, \ldots, n\}$,我们称第$i$个$(n-1)$阶拉格朗日插值多项式为
+$$
+L_{i}(X)=\prod_{j \neq i} \frac{X-a_{j}}{a_{i}-a_{j}} .
+$$
+
+拉格朗日插值多项式具有如下基本性质:
+$$
+L_{i}\left(a_{k}\right)= \begin{cases}1 & \text { 若 } i=k \\ 0 & \text { 若 } i \neq k .\end{cases}
+$$
+利用它们可以构建在每个$a_i$处取指定值的$n-1$阶多项式。
+
+对任意$b_{1}, \ldots, b_{n}\in \mathbb{K}$, 多项式
+$$
+Q=\sum_{i=1}^{n} b_{i} L_{i}
+$$
+是唯一的阶数小于等于$n-1$且满足对任意$i\in \{1, \ldots, n\}$，$Q\left(a_{i}\right)=b_{i}$的多项式。
+
+对任意$P\in \mathbb{K}_{n-1}[X]$,我们有
+$$
+P=\sum_{i=1}^{n} P\left(a_{i}\right) L_{i}
+$$
+
+\subsection{三角化}
+
+我们说$E$(有限非零维)上的一个自同态可三角化若存在一个$E$的基$\mathcal{B}$使得$f$在这个基下的矩阵为上三角矩阵。
+
+我们说一个矩阵$A\in\mathcal{M}_n(\mathbb{K})$可三角化若存在$P\in\mathrm{GL}_n(\mathbb{K})$和$T\in\mathrm{T}_{n,s}(\mathbb{K})$使得$A=PTP^{-1}$。
+
+\begin{framed}
+任意矩阵$A\in \mathcal{M}_n(\mathbb{C})$可三角化。
+\end{framed}
+
+我们首先证明引理:设$f\in \mathcal{L}(E)$。$f$可三角化,当且仅当$\chi_{f}$可完全分解。
+
+$\Longrightarrow$：存在$E$的一个基使得$f$在这个基下的矩阵写作
+$$
+A=\left(\begin{array}{cccc}
+a_{1,1} & a_{1,2} & \cdots & a_{1, n} \\
+0 & a_{2,2} & \ddots & \vdots \\
+\vdots & \ddots & \ddots & a_{n-1, n} \\
+0 & \cdots & 0 & a_{n, n}
+\end{array}\right)
+$$
+则我们有:
+$$
+\chi_{f}(X)=\chi_{A}(X)=\prod_{i=1}^{n}\left(a_{i, i}-X\right)
+$$
+
+$\Longleftarrow$： 对$E$的维数$n$用归纳法。
+
+若$n=1$，没有什么要证明的。
+
+假设性质对$n-1$阶成立, $n \geqslant 2$。
+
+$\chi_{f}$在$\mathbb{K}$中至少有一个根(为什么？)，记其中一个为 $\lambda$，$v_{1}$为其对应的本征向量。 
+
+设$F$是直线$\mathbb{K} v_{1}$的超平面补空间:$E=\mathbb{K} v_{1} \oplus F$。 
+
+我们考虑$E$的一个基$\left(v_{1}, v_{2}, \ldots, v_{n}\right)$，其中对$2 \leqslant i \leqslant n, v_{i} \in F$。
+
+$f$在这个基下的矩阵写作:
+$$
+\left(\begin{array}{c|r}\lambda & \cdots \\ \hline 0 & \\ \vdots & B \\ 0 & \end{array}\right)
+$$
+其中$B\in\mathcal{M}_{n-1}(\mathbb{K})$。
+$$
+\chi_{f}(X)=(\lambda-X) \operatorname{det}\left(B-X I_{n-1}\right)=(\lambda-X) \chi_{B}(X) .
+$$
+
+记$g$为$f$在$F$上的限制：$g$在基$\left(v_{2}, \ldots, v_{n}\right)$下的矩阵为$B$。
+
+由归纳假设, $g$ (从而$B$) 可三角化: 事实上, $\chi_{f}(X)=(\lambda-X) \chi_{g}(X)$, 因为$\chi_{f}$被假设在$\mathbb{K}$上可完全分解, $\chi_{g}$也可以。
+
+所以，存在$F$的一个基 $\left(w_{2}, \ldots, w_{n}\right)$使得$g$在这个基下的矩阵为上三角的。
+
+在基$\left(v_{1}, w_{2}, \ldots, w_{n}\right)$下, $f$ 的矩阵是上三角的。
+
+由D'Alembert-Gauss定理，系数在$\mathbb{C}$中且阶数大于等于1的多项式都是可完全分解的。
+
+\textbf{D'Alembert-Gauss定理}
+
+\begin{framed}
+复数体$\mathbb{C}$是代数封闭的。
+
+换句话说，系数在$\mathbb{C}$中的任意阶数大于等于1的多项式至少在$\mathbb{C}$中取到一个根。
+\end{framed}
+
+设$P(X) \in \mathbb{C}[X]$是阶数$n \geq 1$的多项式，记为
+$$
+P(X)=a_{n} X^{n}+\ldots+a_{1} X+a_{0}, \quad a_{k} \in \mathbb{C}, a_{n} \neq 0
+$$
+对 $z \in \mathbb{C}^{+}$，
+$$
+|P(z)|=\left|a_{n}\right||z|^{n}\left|1+\frac{a_{n-1}}{a_{n} z}+\ldots+\frac{a_{0}}{a_{n} z^{n}}\right|
+$$
+$|P(z)| \rightarrow+\infty$当$|z| \rightarrow+\infty$。
+$$
+\exists R>0,|z|>R \Longrightarrow|P(z)|>|P(0)|+1
+$$
+$z \mapsto|P(z)|$在$\mathbb{C}$上连续,且 $K=\{z \in \mathbb{C} /|z| \leq R\}$是一个有界闭集，从而是$\mathbb{C}$上的紧集(为什么？)。 所以$z \mapsto|P(z)|$在$K$上的限制取到一个下界$m$，且至少在一个点$z_{0} \in K$处达到(为什么？)。对 $z \notin K,|P(z)|>|P(0)|+1>|P(0)| \geq m$,且对$z \in K,|P(z)| \geq m$.所以
+$$
+\forall z \in \mathbb{C},|P(z)| \geq m
+$$
+
+根据Taylor公式, 存在$\left(b_{0}, \ldots, b_{n}\right) \in \mathbb{C}^{n+1}$使得(为什么？)
+$$
+P\left(z_{0}+X\right)=b_{n} X^{n}+\ldots+b_{1} X+b_{0}
+$$
+则$b_{0}=P\left(z_{0}\right)$,且$b_{n} \neq 0$因为$\operatorname{deg}(P)=n$。
+
+设$k=\min \left\{j \in\{1, \ldots, n\} / b_{j} \neq 0\right\}$。
+
+假设$b_{0} \neq 0$。取$\omega$为复数$-\frac{b_{0}}{b_{k}}$的$k$次根。
+
+$$P\left(z_{0}+\omega t\right)=b_{0}\left(1-t^{k}+t^{k} \varepsilon(t)\right)$$
+(为什么？)
+
+其中$\varepsilon$显然是一个在$0$处极限为0的函数。所以存在$\alpha>0$使得$|t|<\alpha \Longrightarrow|\varepsilon(t)|<1$. 取实数 $t$满足$0<t<1$且$t<\alpha$, 我们有
+$$
+\left|P\left(z_{0}+\omega t\right)\right| \leq\left|b_{0}\right|\left(1-t^{k}+t^{k}|\varepsilon(t)|\right)<\left|b_{0}\right|=m
+$$
+从而矛盾。
+
+因此$b_{0}=0$，即 $P\left(z_{0}\right)=0$。
+
+\subsection{习题}
+\textbf{“子母矩阵”同时对角化\footnote{注意同时对角化定理中，可对角化性是作为假设，而不是作为结论。}}
+
+设$A \in \mathcal{M}_{n}(\mathbb{K})$和$M=\left(\begin{array}{cc}A & 2 A \\ 2 A & A\end{array}\right)$。$M$和$A$可以同时对角化。
+
+$\mathcal{M}_n(\mathbb{K})\simeq \mathcal{L}(\mathbb{K}^n)$,$\mathcal{M}_{n,1}(\mathbb{K})\simeq \mathbb{K}^n$。
+
+取$f\in \mathcal{L}(\mathbb{K}^{2n})$使得$M=\mathrm{Mat}_{\mathcal{B}_c}(f)$。
+
+$M$可对角化$\Longrightarrow$ $A$可对角化的充分条件是:存在$\lambda\in \mathbb{K}^{*}$，存在$\mathbb{K}^n$的一组基$\mathcal{B}$使得$\lambda A=\mathrm{Mat}_{\mathcal{B}}(f_{|\langle\mathcal{B}\rangle})$\footnote{现在知道为什么说记号$f_{|\langle\mathcal{B}\rangle}$是个记号滥用了，因为$f_{|\langle\mathcal{B}\rangle}$的作用对象都发生改变了，与限制映射是两回事。}(为什么？)。
+
+$\lambda A=\mathrm{Mat}_{\mathcal{B}}(f_{|\langle\mathcal{B}\rangle})$的充分条件是:若把$\mathcal{B}$补充为$\mathbb{K}^{2n}$的一组基$\mathcal{B}^{~'}$，设$M^{~'}=\mathrm{Mat}_{\mathcal{B}^{~'}}(f)$，则:
+$$
+M^{~'}=\left(\begin{array}{cc}
+\lambda A&B\\
+0&C
+\end{array}\right)
+$$
+这直接指向找$M$的一个相似矩阵(为什么？)。
+
+这个相似矩阵至少是分块上三角的。可以首先尝试分块对角化(为什么？)。
+
+可以类比矩阵
+$$
+\left(\begin{array}{cc}
+1&2\\
+2&1
+\end{array}\right)
+$$
+来寻找分块对角化的思路(为什么？)。
+
+设$A=\left(\begin{array}{ccc}2 & -1 & 2 \\ 5 & -3 & 3 \\ -1 & 0 & -2\end{array}\right)$。计算$A$的幂。
+
+这个应该是矩阵化简的最基础任务了。
+
+两种方案：三角化(若当标准型)和用极小多项式去欧几里得除$X^n$(为什么？)。
+
+三角化第一步，判断可不可以三角化。指向特征多项式能否被完全分解。
+
+求特征多项式是个技术活(为什么？)。
+
+设$\lambda \in \mathbb{K}$。
+$$\tiny
+\begin{aligned}
+\mathrm{det}\left(A-\lambda \mathrm{I}_{3}\right)&=\left|\begin{array}{ccc}
+2-\lambda & -1 & 2 \\
+5 & -3-\lambda & 3 \\
+-1 & 0 & -2-\lambda
+\end{array}\right|\\
+&\overset{C_1\leftarrow C_1-C_3}{=}\left|\begin{array}{ccc}
+-\lambda & -1 & 2 \\
+2 & -3-\lambda & 3 \\
+1+\lambda & 0 & -2-\lambda
+\end{array}\right|(\text{为什么？})\\
+&\overset{L_1\leftarrow L_1+L_3}{=}\left|\begin{array}{ccc}
+1 & -1 & -\lambda \\
+2 & -3-\lambda & 3 \\
+1+\lambda & 0 & -2-\lambda
+\end{array}\right|(\text{为什么？})\\
+&\overset{C_2\leftarrow C_2+C_1}{=}\left|\begin{array}{ccc}
+1 & 0 & -\lambda \\
+2 & -1-\lambda & 3 \\
+1+\lambda & 1+\lambda & -2-\lambda
+\end{array}\right|(\text{为什么？})\\
+&=(1+\lambda)\left|\begin{array}{ccc}
+1 & 0 & -\lambda \\
+2 & -1 & 3 \\
+1+\lambda & 1 & -2-\lambda
+\end{array}\right| (\text{为什么？})\\
+&=-(\lambda+1)^3
+\end{aligned}
+$$
+$\chi_{A}=-(X+1)^{3}$。
+
+$A$可三角化(为什么？)。
+
+$A\not =-I_3$，不可对角化(为什么？)。
+
+Jordan型化简核心：研究本征空间诱导的核空间序列，构建基底。
+
+设$X=\left[\begin{array}{c}
+x\\
+y\\
+z
+\end{array}\right]\in \mathcal{M}_{3,1}(\mathbb{K})$。
+$$
+\tiny
+\begin{aligned}
+X\in E_{-1}(A) & \Longleftrightarrow\left[\begin{array}{ccc}
+2 & -1 & 2 \\
+5 & -3 & 3 \\
+-1 & 0 & -2
+\end{array}\right]\times\left[\begin{array}{c}
+x \\
+y \\
+z
+\end{array}\right]=-\left[\begin{array}{c}
+x \\
+y \\
+z
+\end{array}\right] \\
+& \Longleftrightarrow\left\{\begin{array}{cc}
+2 x-y+2 z=-x \\
+5 x-3 y+3 z=-y \\
+-x-2 z=-z
+\end{array}\right.\\
+&\Longleftrightarrow\left\{\begin{array}{l}
+x=y \\
+x=-z
+\end{array}\right. \\
+&\Longleftrightarrow X=\left[\begin{array}{c}
+x \\
+x \\
+-x
+\end{array}\right]=x\left[\begin{array}{r}
+1 \\
+1 \\
+-1
+\end{array}\right] \\
+&\Longleftrightarrow X \in<\left[\begin{array}{c}
+1 \\
+1\\
+-1
+\end{array}\right]>.
+\end{aligned}
+$$
+$\operatorname{dim}\left(E_{-1}(A)\right)=1$。
+
+$A$相似于
+$$
+T=\left[\begin{array}{ccc}
+-1 & 1 & 0 \\
+0 & -1 & 1 \\
+0 & 0 & -1
+\end{array}\right]=-I_3+\left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right]
+$$
+
+注意到
+$$
+\left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right]^2=\left[\begin{array}{ccc}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right]
+$$
+$$
+\left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right]^3=
+\left[\begin{array}{ccc}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right]\times \left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right]=0
+$$
+只关心$n\ge 2$的情况。
+$$\tiny
+\begin{aligned}
+T^n&=(-I_3+\left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right])^n\\
+&=(-1)^nI_3+n(-1)^{n-1}\left[\begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right]+\frac{n(n-1)}{2}(-1)^{n-2}\left[\begin{array}{ccc}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right]\\
+&=(-1)^n\left[\begin{array}{ccc}
+1 & -n & \frac{n(n-1)}{2} \\
+0 & 1 & -n \\
+0 & 0 & 1
+\end{array}\right]
+\end{aligned}
+$$
+就形式来看还不错。相比做$n$次乘法，之后只用做两次乘法。
+
+但关键还是要具体地找到使得$A=P^{-1}TP$的可逆矩阵$P$。
+
+之后研究由$E_{-1}(A)=\mathrm{ker}(A+I_3)$诱导的核空间序列。
+
+分析：我们找一组基$\left(e_{1}, e_{2}, e_{3}\right)$使得
+$$\left\{\begin{array}{l}A e_{1}=-e_{1} \\ A e_{2}=e_{1}-e_{2} \\ 
+A e_{3}=e_{2}-e_{3}\end{array}\right.$$
+即
+$$
+\left\{\begin{array}{l}
+e_{1} \in \operatorname{ker}\left(A+I_{3}\right) \backslash \left\{0\right\} \\
+\left(A+I_{3}\right) e_{2}=e_{1} \\
+\left(A+I_{3}\right) e_{3}=e_{2}
+\end{array}\right.
+$$
+$e_{3} \in \mathcal{M}_{3,1}(\mathbb{K})\backslash \operatorname{ker}\left((A+I_3)^{2}\right)$(为什么？)。
+
+研究$\mathrm{ker}\left((A+I_3)^2\right)$。不需要完全算出来，只需要找一个能破坏关系的(为什么？)。
+
+$$
+\left(A+I_{3}\right)^{2}=\left[\begin{array}{ccc}
+2 & -1 & 1 \\
+2 & -1 & 1 \\
+-2 & 1 & -1
+\end{array}\right]
+$$
+设$X=\left[\begin{array}{c}
+x\\
+y\\
+z
+\end{array}\right]\in \mathcal{M}_{3,1}(\mathbb{K})$。
+$$
+\tiny
+\begin{aligned}
+X\in \mathrm{ker}\left((A+I_3)^2\right) & \Longleftrightarrow\left[\begin{array}{ccc}
+2 & -1 & 1 \\
+2 & -1 & 1 \\
+-2 & 0 & -1
+\end{array}\right]\times\left[\begin{array}{c}
+x \\
+y \\
+z
+\end{array}\right]=0 \\
+\end{aligned}
+$$
+显然只需要一个$z\not=-2x$的向量即可。
+
+令$e_{3}=\left[\begin{array}{l}1 \\ 0 \\ 0\end{array}\right]$。则$e_{2}=\left[\begin{array}{l}3 \\ 5 \\ -1\end{array}\right],e_{1}=\left[\begin{array}{l}2 \\ 2 \\ -2\end{array}\right]\in \operatorname{ker}\left(A+I_{3}\right) \backslash \left\{0\right\}$。
+
+$$
+P=\left[\begin{array}{ccc}
+2 & 2 & 1 \\
+2 & 5 & 0 \\
+-2 & -1 & 0
+\end{array}\right]
+$$
+之后就是求逆(高斯曲轴消元法)和做矩阵乘法了。
+
+首先确定极小多项式。
+
+$\pi_{A}=(X+1)^{m},m=\{1,2,3\}$(为什么？)。
+
+$m=1$,$A+I_3=0$，显然不行。
+
+$m=2$,$\mathrm{Im}\left(A+I_3\right)\subset\ker\left(A+I_3\right)$，显然也不行(为什么？)。
+
+所以$\pi_{A}=(X+1)^{3}$。
+
+设$n\ge 2$。存在唯一$Q \in \mathbb{K}[X]$, $a_n,b_n,c_{n} \in \mathbb{K}$使得(为什么？)：
+$$
+\left\{\begin{array} {c} 
+X^{n} = Q \pi_{A} + a_{n} X^{~2} + b_{n} X + c_{n} \\
+n X^{n + 1} = ( Q\pi_{A} )^{\prime} + 2 a_{n} X  + b_{n}\\
+n(n - 1) X^{n - 2} = (Q \pi_{A})^{\prime \prime} + 2 a_{n}
+\end{array}\right.
+$$
+代入$-1$(为什么？)。
+$$
+\left\{\begin{array}{l}
+a_{n}-b_{n}+c_{n}=(-1)^{n} \\
+-2 a_{n}+b_{n}=n(-1)^{n-1} \\
+2 a_{n}=n(n-1)(-1)^{n}
+\end{array}\right.
+$$
+$$
+\left\{\begin{array}{l}
+a_{n}=\frac{n(n-1)(-1)^{n}}{2}\\
+b_{n}=n(n-1)(-1)^{n}+n(-1)^{n-1}=(-1)^nn(n-2) \\
+c_{n}=(-1)^{n}+ \frac{n(n-1)(-1)^{n}}{2}+n(-1)^{n-1}=(-1)^n
+\frac{(n-1)(n-2)}{2}\end{array}\right.
+$$
+
+$$
+A^n=\frac{n(n-1)}{2}(-1)^{n} A^{2}+(-1)^{n} n(n-2) A+(-1)^{n} \frac{(n-1)(n-2)}{2} I_{3}
+$$
+相比起来，利用最小多项式的方法在这里非常好用。
+
+\textbf{“子母”矩阵对角化问题}
+
+设$A \in \mathcal{M}_{n}(\mathbb{C})$和$M=\left(\begin{array}{cc}A & A \\ 0 & A\end{array}\right)$。我们想找到$M$可对角化的一个关于$A$的的充分必要条件。
+
+“子母”矩阵的联系一般靠第二对角化判据加多项式数论的方法得到。
+
+假设$M$可对角化。则存在一个$M$的零化多项式$P$可完全分解为单根。我们可以算出$P(M)$。假设$P=\sum\limits_{k=0}^{m}a_kX^k$。则我们首先要得到$M^k$(为什么？)。找规律加归纳法证明:$M^k=\left(\begin{array}{cc}A^k & kA^k \\ 0 & A^k\end{array}\right)$。那么:
+$$
+\begin{aligned}
+P(M)&=\left(\begin{array}{cc}
+P(A) & \sum\limits_{k=0}^{m}a_kkA^k \\
+0 & P(A)
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+P(A) & AP'(A)\\
+0 & P(A)
+\end{array}\right)
+\end{aligned}
+$$
+$P(A)=AP'(A)=0$。
+之后的推理就是多项式数论了。
+
+Bézout定理：设$A$和$B$两个非零多项式。
+$A$和$B$互素，当且仅当存在两个多项式$U$和$V$使得$A U+B V=1$。
+
+用反证法证明$P$和$P'$互素。因为$P$可完全分解为单根，假设$P$和$P'$有公因子$X-a$。则：$a$是$P$的重根，矛盾。
+
+所以存在$U,V\in\mathbb{C}[X]$使得：$UP+VP'=1$。
+
+$U(A)P(A)+V(A)P'(A)=I_n$。所以$P'(A)$可逆。$A=0$。
+
+$M$可对角化，当且仅当$A=0$。
+
+\textbf{求解线性微分方程}
+
+求解以下方程组：
+$$
+(E) \left\{\begin{array}{l}
+x^{~\prime}=-2 x-5 y+4 z \\
+y^{~\prime}=-x-3 y+z \\
+z^{~\prime}=-x-5 y+3 z
+\end{array}\right.
+$$
+
+先进行等价转化。
+
+令
+$$
+\begin{aligned}
+&A=\left[\begin{array}{lll}
+-2 & -5 & 4 \\
+-1 & -3 & 1 \\
+-1 & -5 & 3
+\end{array}\right] \\
+&X:t \longmapsto\left(\begin{array}{l}
+x(t) \\
+y(t) \\
+z(t)
+\end{array}\right)
+\end{aligned}
+$$
+则
+$$
+(E) \Longleftrightarrow X^{\prime}=A X
+$$
+通解为:
+$$
+\exists V_0\in\mathcal{M}_{3,1}(\mathbb{R}),\forall t\in \mathbb{R},X(t)=e^{tA}V_0
+$$
+接下来的任务是算出$e^{tA}$。首先要完成$A$的对角化。
+
+设$\lambda\in\mathbb{K}$。$$\mathrm{det}(A-\lambda I_3)=
+\left|\begin{array}{ccc}
+-2-\lambda & -5 & 4 \\
+-1 & -3-\lambda & 1 \\
+-1 & -5 & 3-\lambda
+\end{array}\right|
+$$
+
+$$
+\begin{aligned}
+\left|\begin{array}{ccc}
+-2-\lambda & -5 & 4 \\
+-1 & -3-\lambda & 1 \\
+-1 & -5 & 3-\lambda
+\end{array}\right|&\underset{L_{3} \leftarrow L_{3}-L_{2}}{=}\left|\begin{array}{ccc}
+-2-\lambda & -5 & 4 \\
+-1 & -3-\lambda & 1 \\
+0 & -2+\lambda & 2-\lambda
+\end{array}\right|\\
+&\underset{C_{2} \leftarrow C_{2}+C_{3}}{=}\left|\begin{array}{ccc}
+-2-\lambda & -1 & 4 \\
+-1 & -2-\lambda & 1 \\
+0 & 0 & 2-\lambda
+\end{array}\right|\\
+&=(2-\lambda)\left|\begin{array}{cc}
+-2-\lambda & -1 \\
+-1 & -2-\lambda
+\end{array}\right| \\
+&=(2-\lambda)\left((2+\lambda)^{2}-1\right) \\
+&=(2-\lambda)(\lambda+1)(\lambda+3)
+\end{aligned}
+$$
+特征多项式可以分解为单根，所以$A$可对角化。
+$$
+\sigma(A)=\{2,-1,-3\}
+$$
+设$X=\left[\begin{array}{l}x \\ y \\ z\end{array}\right] \in \mathbb{R}^{3}$。
+
+$$
+\begin{aligned}
+X\in E_{2}(A) & \Longleftrightarrow\left[\begin{array}{ccc}
+-2 & -5 & 4 \\
+-1 & -3 & 1 \\
+-1 & -5 & 3
+\end{array}\right] x\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=2\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right] \\
+&\Longleftrightarrow\left\{\begin{array}{c}
+-2 x-5 y+4 z=2 x \\
+-x-3 y+z=2 y \\
+-x-5 y+3 z=2 z
+\end{array}\right.\\
+&\Longleftrightarrow\left\{\begin{array}{l}
+x=z \\
+y=0
+\end{array}\right.\\
+&\Longleftrightarrow\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=\left[\begin{array}{l}
+z \\
+0 \\
+z
+\end{array}\right]=z\left[\begin{array}{l}
+1 \\
+0 \\
+1
+\end{array}\right] \\
+& \Longleftrightarrow\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]\in <\left[\begin{array}{l}
+1 \\
+0 \\
+1
+\end{array}\right]>
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+X\in E_{-1}(A) & \Longleftrightarrow\left[\begin{array}{ccc}
+-2 & -5 & 4 \\
+-1 & -3 & 1 \\
+-1 & -5 & 3
+\end{array}\right] \times\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=-\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right] \\
+&\Longleftrightarrow\left\{\begin{array}{c}
+-2 x-5 y+4 z=-x \\
+-x-3 y+z=-y \\
+-x-5 y+3 z=-z
+\end{array}\right.\\
+&\Longleftrightarrow\left\{\begin{array}{l}
+x=-z \\
+y=z
+\end{array}\right.\\
+&\Longleftrightarrow\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=\left[\begin{array}{c}
+-z \\
+z \\
+z
+\end{array}\right]=z\left[\begin{array}{c}
+-1 \\
+1 \\
+1
+\end{array}\right] \in<\left[\begin{array}{l}
+-1 \\
+1\\
+1
+\end{array}\right]>
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+X \in E_{-3}(A) & \Longleftrightarrow\left[\begin{array}{ccc}
+-2 & -5 & 4 \\
+-1 & -3 & 1 \\
+-1 & -5 & 3
+\end{array}\right] \times\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=-3\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right] \\
+&\Longleftrightarrow\left\{\begin{array}{ll}
+-2 x-5 y+4 z=-3 x \\
+-x-3 y+z=-3 y \\
+-x-5 y+3 z=-3 z
+\end{array}\right.\\
+& \Longleftrightarrow\left\{\begin{array}{l}
+x=z \\
+y=z
+\end{array}\right.\\
+&\Longleftrightarrow\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=z\left[\begin{array}{l}
+1 \\
+1 \\
+1
+\end{array}\right] \\
+&\Longleftrightarrow\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]\in<\left[\begin{array}{l}
+1 \\
+1 \\
+1
+\end{array}\right]>
+\end{aligned}
+$$
+
+令$P=\left[\begin{array}{ccc}1 & -1 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 1\end{array}\right]$，则$P \in \mathrm{GL}_{3}(\mathbb{R})$且$P^{-1} A P=\left[\begin{array}{ccc}2 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & -3\end{array}\right]=D\in\mathcal{D}_3(\mathbb{R})$。
+
+设$X=\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]\in\mathcal{D}^{1}(\mathbb{R})$。
+$X$是$(E)$的一个解当且仅当，
+$\exists V_0\in\mathcal{M}_{3,1}(\mathbb{R}),\forall t\in \mathbb{R},X(t)=e^{tA}V_0$
+当且仅当，
+$
+\exists V_0\in\mathcal{M}_{3,1}(\mathbb{R}),\forall t \in \mathbb{R},X(t)=\sum\limits_{n=0}^{\infty} \frac{t^{n} A^{n}}{n !} V_{0}
+$
+当且仅当，
+$
+\exists \widetilde{V}_{0}\in\mathcal{M}_{3,1}(\mathbb{R}),\forall t \in \mathbb{R},X(t)=P\sum\limits_{n=0}^{\infty} \frac{t^{n} D^{n}}{n !} \widetilde{V}_{0}
+$
+当且仅当，
+$\exists \widetilde{V}_{0} \in \mathcal{M}_{3,1}(\mathbb{R}),\forall t\in \mathbb{R},X(t)=Pe^{tD} \large\widetilde{V}_{0}$当且仅当，
+
+存在$\left[\begin{array}{l}
+a \\
+b \\
+c
+\end{array}\right] \in \mathcal{M}_{3,1}(\mathbb{R})$，
+$$\tiny
+\begin{aligned}
+\forall t \in \mathbb{R}, X(t)&=\left[\begin{array}{ccc}
+1 & -1 & 1 \\
+0 & 1 & 1 \\
+1 & 1 & 1
+\end{array}\right] \times\left[\begin{array}{ccc}
+\sum\limits_{n=0}^{+\infty} \frac{2^{n} t^{n}}{n !} & 0 & 0 \\
+0 & \sum\limits_{n=0}^{+\infty} \frac{(-1)^{n} t^{n}}{n!} & 0 \\
+0 & 0 & \sum\limits_{n=0}^{+\infty}\frac{(-3)^{n}t^{n}}{n!}  
+\end{array}\right]\times \left[\begin{array}{l}
+a \\
+b \\
+c
+\end{array}\right]\\
+&=\left[\begin{array}{ccc}
+1 & -1 & 1 \\
+0 & 1 & 1 \\
+1 & 1 & 1
+\end{array}\right] \times\left[\begin{array}{ccc}
+e^{2 t} & 0 & 0 \\
+0 & e^{-t} & 0 \\
+0 & 0 & e^{-3 t}
+\end{array}\right]\times \left[\begin{array}{l}
+a \\
+b \\
+c
+\end{array}\right]\\
+&=\left[\begin{array}{ccc}
+e^{2 t} & -e^{-t} & e^{-3 t} \\
+0 & e^{-t} & e^{-3 t} \\
+e^{2 t} & e^{-t} & e^{-3 t}
+\end{array}\right] \times\left[\begin{array}{l}
+a \\
+b \\
+c
+\end{array}\right] \\
+&=\left[\begin{array}{c}
+a e^{2 t}-b e^{-t}+c e^{-3 t} \\
+b e^{-t}+c e^{-3 t} \\
+a e^{2 t}+b e^{-t}+c e^{-3 t}
+\end{array}\right]
+\end{aligned}
+$$
